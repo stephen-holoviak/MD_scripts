@@ -68,11 +68,11 @@ def calc_rdf(timestep, cell, z_bot, z_top, o_type = 5):
     # iterate over all the oxygen atoms and calculate the number of atoms in a shell of radius r with thickness dr
     o_atoms = timestep[timestep['Type'] == o_type].reset_index()
 
-    for index in tqdm(range(num_water)):
+    for index in tqdm(range(num_water)):   ###!!!NOTE: will need to change the range of the calculation if doing something other than O-O RDF
         row = o_atoms.iloc[index]
         o1_pos = [float(row['X']), float(row['Y']), float(row['Z'])]
         o1_ID = row['ID']
-        o2_atoms = o_atoms[o_atoms['ID'] != o1_ID]
+        o2_atoms = o_atoms[o_atoms['ID'] > o1_ID] 
         # Calculate volume of spherical shells (with cuts if appropriate)
         for j in range(resolution):
             r1 = j * dr
@@ -87,7 +87,7 @@ def calc_rdf(timestep, cell, z_bot, z_top, o_type = 5):
             dist = pbc_distance(o1_pos, o2_pos, cell)
             bucket = int(dist/dr)
             if 0 < bucket < resolution:
-                g_of_r[bucket] += 1.0
+                g_of_r[bucket] += 2.0
 
     # Normalize the RDF
     for index, value in enumerate(g_of_r):
@@ -128,4 +128,4 @@ num_water = len(data[data['Type'] == oxygen])
 o_atoms = data[data['Type'] == oxygen].reset_index()
 
 g_r, r= calc_rdf(data, cell, zmin, zmax, o_type=oxygen)
-plot_rdf(r, g_r)
+plot_rdf(r, g_r, file='new.png')
