@@ -111,14 +111,14 @@ def plot_rdf (radii, g, file='out.png', write=True):
 
 ############################################
 
-file = '/Users/steve/doe-project/recomb/initialization/cu_nvt/chg.3940000.lmp'
+file = '/Users/steve/doe-project/recomb/pt_production/pt_coupled_5v/chg.2000000.lmp'
 print('Reading File: ', file)
 ts, data, cell = read_TS.read_TS(file, return_cell=True)
 print('cell dimmensions: ', cell)
 
-cat = 1
-anode = 2
-oxygen = 6
+cat = 4
+anode = 5
+oxygen = 1
 
 zmax, zmin = find_solvent_region(data, cat, anode)
 print('solvent z max = ', zmax, ' z min = ', zmin)

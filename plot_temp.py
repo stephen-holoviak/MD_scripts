@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-f = open('/Users/steve/doe-project/recomb/frozen_p0/lmp.log', 'r')
+f = open('/Users/steve/doe-project/recomb/pt_production/pt_coupled_5v/lmp.log', 'r')
 
 data = [['Time Step'], ['totE [eV]'], ['KE [eV]'], ['Temp [K]'], ['PE [eV]']]
 num_data_lines = 5
